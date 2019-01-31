@@ -1,8 +1,6 @@
-import numpy as np
-
 #Runge-Kutta 4th Order
 
-def method(q1,p1,dq,dp,t,dt):
+def method(q1,p1,dq,dp,t1,dt):
     m=2 				# Number of differential equations
     k1=[0.0]*m 
     k2=[0.0]*m
@@ -12,16 +10,16 @@ def method(q1,p1,dq,dp,t,dt):
     A=[dq,dp] 			#Name of the differential equations
     
     for s in range(len(A)):
-        k1[s]=dt*(A[s](q1,p1,t))
+        k1[s]=dt*(A[s](q1,p1,t1))
     for s in range(len(A)):
-         k2[s]=dt*A[s](q1+0.5*k1[0],p1+0.5*k1[1],t+(dt/2.0))
+         k2[s]=dt*A[s](q1+0.5*k1[0],p1+0.5*k1[1],t1+(dt/2.0))
     for s in range(len(A)):
-        k3[s]=dt*A[s](q1+0.5*k2[0],p1+0.5*k2[1],t+(dt/2.0))
+        k3[s]=dt*A[s](q1+0.5*k2[0],p1+0.5*k2[1],t1+(dt/2.0))
     for s in range(len(A)):
-        k4[s]=dt*A[s](q1+k3[0],p1+k3[1],t+h)
+        k4[s]=dt*A[s](q1+k3[0],p1+k3[1],t1+dt)
         
     q1+=(1./6.0)*(k1[0]+2.0*k2[0]+2.0*k3[0]+k4[0])
     p1+=(1./6.0)*(k1[1]+2.0*k2[1]+2.0*k3[1]+k4[1])
-    t+=dt
+    t1+=dt
     
-    return q1,p1,t
+    return q1,p1,t1
